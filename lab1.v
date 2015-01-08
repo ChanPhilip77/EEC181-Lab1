@@ -113,7 +113,7 @@ assign HEX5 = ~hex5_hex4[14:8];
         .memory_mem_a       (HPS_DDR3_ADDR),       //      memory.mem_a
         .memory_mem_ba      (HPS_DDR3_BA),      //            .mem_ba
         .memory_mem_ck      (HPS_DDR3_CK_P),      //            .mem_ck
-        .memory_mem_ck_n    (HPS_DDR3_CK_N,    //            .mem_ck_n
+        .memory_mem_ck_n    (HPS_DDR3_CK_N),    //            .mem_ck_n
         .memory_mem_cke     (HPS_DDR3_CKE),     //            .mem_cke
         .memory_mem_cs_n    (HPS_DDR3_CS_N),    //            .mem_cs_n
         .memory_mem_ras_n   (HPS_DDR3_RAS_N),   //            .mem_ras_n
