@@ -127,11 +127,11 @@ assign HEX5 = ~hex5_hex4[14:8];
         .memory_mem_dm      (HPS_DDR3_DM),      //            .mem_dm
         .memory_oct_rzqin   (HPS_DDR3_RZQ),   //            .oct_rzqin
         
-//        .rled_export        (<connected-to-rled_export>),        //        rled.export
-//        .hex3_hex0_export   (<connected-to-hex3_hex0_export>),   //   hex3_hex0.export
-//        .hex5_hex4_export   (<connected-to-hex5_hex4_export>),   //   hex5_hex4.export
-//        .switches_export    (<connected-to-switches_export>),    //    switches.export
-//        .pushbuttons_export (<connected-to-pushbuttons_export>)  // pushbuttons.export
+        .rled_export        (LEDR),        //        rled.export
+        .hex3_hex0_export   (hex3_hex0),   //   hex3_hex0.export
+        .hex5_hex4_export   (hex5_hex4),   //   hex5_hex4.export
+        .switches_export    (SW),    //    switches.export
+        .pushbuttons_export (~KEY[3:0])  // pushbuttons.export
     );
 
 endmodule
