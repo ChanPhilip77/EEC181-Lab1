@@ -11,7 +11,7 @@ int main(void)
 	volatile int * pb = (int *) 0xFF200000; // Push button address
 	int switch_value;
 	int btn_value;
-	int wait = 999999;
+	int wait = 99999;
 	int h = 0b1110110;
 	int e = 0b1111001;
 	int l = 0b0111000;
@@ -30,6 +30,7 @@ int main(void)
 	int hw[24] = {sp, sp, sp, sp, sp, sp, h, e, l, l, o, sp, u, u, o, r, l, d, sp, sp, sp, sp, sp, sp, sp, sp, sp, sp, sp,};
 	int n;
 	int i; 
+	int j;
 
 	int ds[14] = {sp,sp,sp,sp,sp,sp,sp,sp,sp,sp,sp,sp,sp,sp}; //dynamic scroll
 	while (1)
@@ -48,21 +49,38 @@ int main(void)
 				*(hex30) = (hw[i+2]*256*256*256)+(hw[i+3]*256*256)+(hw[i+4]*256)+(hw[i+5]);
 				for (n = 0; n < wait; n++)
 				{
+					switch_value = *(switchptr); // check switches
+					*(led) = switch_value;
 					btn_value = (*pb);
-					if (btn_value == 0b0001)
+					if (btn_value != 0)
 					{
-						hello = false;
-					}
-					if (btn_value == 0b0010)
-					{
-						if (pause == 0)
+						if (btn_value == 0b0001)
 						{
-							pause = 1;
-						}
-						else
+							hello = false;
+						} // if end
+						if (btn_value == 0b0010)
 						{
-							pause = 0;
+							if (pause == 0)
+							{
+								pause = 1;
+							}
+							else
+							{
+								pause = 0;
+							}
 						}
+						if (btn_value == 0b0100)
+						{
+							wait = wait + 30000;
+						}
+						if (btn_value == 0b1000)
+						{
+							if (wait != 39999)
+								wait = wait - 30000;				
+						}
+						for (j = 0; j < 999999; j++) // wait until button is no longer pressed
+						{
+						} // for end	
 					}
 					if (pause == 1)
 					{
@@ -83,18 +101,46 @@ int main(void)
 				*(hex30) = (ds[i+2]*256*256*256)+(ds[i+3]*256*256)+(ds[i+4]*256)+(ds[i+5]);
 				for (n = 0; n < wait; n++)
 				{
+					switch_value = *(switchptr); // check switches
+					*(led) = switch_value;
 					btn_value = (*pb);
-					if (btn_value == 0b0001)
-						hello = true;
-					if (btn_value == 0b0010)
+					if (btn_value != 0)
 					{
-						if (pause == 0)
-							pause = 1;
-						else
-							pause = 0;
+						if (btn_value == 0b0001)
+						{
+							hello = true;
+						} // if end
+						if (btn_value == 0b0010)
+						{
+							if (pause == 0)
+							{
+								pause = 1;
+							}
+							else
+							{
+								pause = 0;
+							}
+						}
+						if (btn_value == 0b0100)
+						{
+							wait = wait + 30000;
+						}
+						if (btn_value == 0b1000)
+						{
+							if (wait != 39999)
+								wait = wait - 30000;				
+						}
+						for (j = 0; j < 999999; j++) // wait until button is no longer pressed
+						{
+						} // for end	
+					}
+					if (pause == 1)
+					{
+						n = 0;
 					}
 					if (pause == 1)
 						n = 0;
+
 				} // for n end		
 				if(hello)
 				{
@@ -104,14 +150,6 @@ int main(void)
 
 		} // end else
 
-		
 	} // while 1 end
+
 } // main end
-
-/* ds[14] = {0,0,0,0,0,one,two,0,0,0,0,0}
-two = switch1 + switch2 + switch3 + ...
-one = switch9 + switch8 + switch7
-
-0b0000000001
-0b1000000000
-0b0000000010*/
