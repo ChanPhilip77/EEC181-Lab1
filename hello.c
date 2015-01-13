@@ -60,14 +60,21 @@ int main(void)
 						} // if end
 						if (btn_value == 0b0010)
 						{
-							if (pause == 0)
+							while (btn_value == 0b0010) // wait for button release
 							{
-								pause = 1;
+								btn_value = (*pb);
 							}
-							else
+							while (btn_value != 0b0010) // pause state
 							{
-								pause = 0;
+								btn_value = (*pb);
+								switch_value = *(switchptr); // check switches
+								*(led) = switch_value;
 							}
+							while (btn_value == 0b0010)  // wait for button release
+							{
+								btn_value = (*pb);
+							}
+
 						}
 						if (btn_value == 0b0100)
 						{
@@ -112,13 +119,19 @@ int main(void)
 						} // if end
 						if (btn_value == 0b0010)
 						{
-							if (pause == 0)
+							while (btn_value == 0b0010) // wait for button release
 							{
-								pause = 1;
+								btn_value = (*pb);
 							}
-							else
+							while (btn_value != 0b0010) // pause state
 							{
-								pause = 0;
+								btn_value = (*pb);
+								switch_value = *(switchptr); // check switches
+								*(led) = switch_value;
+							}
+							while (btn_value == 0b0010)  // wait for button release
+							{
+								btn_value = (*pb);
 							}
 						}
 						if (btn_value == 0b0100)
